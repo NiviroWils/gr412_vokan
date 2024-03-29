@@ -26,8 +26,40 @@
     </nav>
 </header>
 <main>
+    <div class="content_block">
     <?= $content ?? '' ?>
+    </div>
 </main>
 
 </body>
+<style>
+    *{
+        max-height: 1080px;
+        max-width: 1920px;
+        margin: 0;
+        padding: 0;
+    }
+    nav{
+        width: 1920px;
+        height: 60px;
+        background-color: #A6A6A6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+        font-size: 30px;
+
+
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+    a:hover{
+        color: #333333;
+    }
+    .content_block{
+
+    }
+</style>
 </html>
