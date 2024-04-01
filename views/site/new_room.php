@@ -1,12 +1,24 @@
-<h2 class="auth_head">Регистрация нового пользователя</h2>
+<h2 class="auth_head">Новое помещение</h2>
 <h3><?= $message ?? ''; ?></h3>
 <div class="auth_div">
-<form class="auth_form" method="post">
-    <input placeholder="Имя" type="text" name="name">
-    <input placeholder="Email" type="text" name="login">
-    <input placeholder="Пароль" type="password" name="password">
-    <button>Зарегистрироваться</button>
-</form>
+    <form class="auth_form" method="post">
+        <input type="text" placeholder="Название или номер помещения" name="division_name">
+        <select name="type" id="division_type">
+            <option class="" value="">Вид помещения</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <select name="type" id="division_type">
+            <option class="" value="">Подразделение</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <button>Добавить помещение</button>
+    </form>
 </div>
 <style>
     .auth_div{
@@ -61,9 +73,19 @@
     }
 
     .auth_head{
-        margin-left: 670px;
+        margin-left: 755px;
         margin-top: 60px;
         font-size: 40px;
     }
 
+    select{
+        width: 829px;
+        height: 97px;
+        background-color: #CCCCCC;
+        border-style: none;
+        border-radius: 30px;
+        font-size: 25px;
+    }
+
 </style>
+

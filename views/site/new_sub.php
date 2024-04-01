@@ -1,21 +1,24 @@
-<h2 class="auth_head">Авторизация</h2>
-<p class="auth_p">Добро пожаловать!</p>
+<h2 class="auth_head">Новый абонент</h2>
 <h3><?= $message ?? ''; ?></h3>
-
-<h3><?= app()->auth->user()->name ?? ''; ?></h3>
-<?php
-if (!app()->auth::check()):
-    ?>
 <div class="auth_div">
     <form class="auth_form" method="post">
-        <input type="text" placeholder="Email" name="login">
-        <input type="password" placeholder="Пароль" name="password">
-        <button>Войти</button>
+        <input type="text" placeholder="Имя" name="sub_name">
+        <input type="text" placeholder="Фамилия" name="sub_surname">
+        <input type="text" placeholder="Отчество" name="sub_patronymic">
+        <input type="date" />
+        <select name="type" id="division">
+            <option class="" value="">Подразделение</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <button>Добавить абонента</button>
     </form>
 </div>
 <style>
     .auth_div{
-        height: 475px;
+        height: 724px;
         width: 964px;
         background-color: #AAAAAA;
         display: flex;
@@ -38,10 +41,11 @@ if (!app()->auth::check()):
     input::placeholder{
         font-size: 25px;
     }
-   input:focus{
-       background-color: #787878;
-       color: white;
-       font-size: 25px;
+    input:focus{
+        background-color: #787878;
+        color: white;
+        font-size: 25px;
+
     }
     .auth_form{
         display: flex;
@@ -66,14 +70,19 @@ if (!app()->auth::check()):
     }
 
     .auth_head{
-        margin-left: 830px;
+        margin-left: 820px;
         margin-top: 60px;
         font-size: 40px;
     }
-.auth_p{
-    font-size: 24px;
-    margin-left: 850px;
-    color: #4E4E4E;
-}
+
+    select{
+        width: 829px;
+        height: 97px;
+        background-color: #CCCCCC;
+        border-style: none;
+        border-radius: 30px;
+        font-size: 25px;
+    }
+
 </style>
-<?php endif;
+

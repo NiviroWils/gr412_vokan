@@ -22,6 +22,18 @@ class Site
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
+    public function newdivision(): string
+    {
+        return new View('site.new_division');
+    }
+    public function newroom(): string
+    {
+        return new View('site.new_room');
+    }
+    public function newsub(): string
+    {
+        return new View('site.new_sub');
+    }
     public function signup(Request $request): string
     {
         if ($request->method==='POST' && User::create($request->all())){
