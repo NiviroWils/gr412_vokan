@@ -3,13 +3,17 @@
 <div class="auth_div">
     <form class="auth_form" method="post">
         <input type="text" placeholder="Название или номер помещения" name="division_name">
-        <select name="type" id="division_type">
-            <option class="" value="">Вид помещения</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
+        <label>
+            <select name="type_id">
+                <option value="">Вид помещения</option>
+                <?php foreach($room_types as $types) {
+                    ?>
+                    <option value="<?php echo $types->type_id;?>">
+                        <?php echo $types->type;?>
+                    </option> <?php
+                } ?>
+            </select>
+        </label>
         <select name="type" id="division_type">
             <option class="" value="">Подразделение</option>
             <option value="1">1</option>

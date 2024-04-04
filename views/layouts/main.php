@@ -14,7 +14,7 @@
 <header>
     <nav>
         <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
-        <a href="<?= app()->route->getUrl('/newdivision') ?>">Подразделения</a>
+        <a href="<?= app()->route->getUrl('/divisions') ?>">Подразделения</a>
         <a href="<?= app()->route->getUrl('/newroom') ?>">Помещения</a>
         <a href="<?= app()->route->getUrl('/newsub') ?>">Абоненты</a>
         <?php

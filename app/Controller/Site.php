@@ -1,12 +1,13 @@
 <?php
-
 namespace Controller;
-
-use Illuminate\Database\Capsule\Manager as DB;
-use Src\View;
-use Src\Request;
+use Model\Division_type;
+use Model\Division;
+use Model\Post;
+use Model\Room_type;
 use Model\User;
 use Src\Auth\Auth;
+use Src\Request;
+use Src\View;
 
 
 class Site
@@ -22,17 +23,38 @@ class Site
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
-    public function newdivision(): string
+    public function newdivision(Request $request): string
     {
-        return new View('site.new_division');
+        if ($request->method === 'POST') {
+            if (isset($_POST['division_name'], $_POST['type_id'])) {
+                $division = new Division();
+                $division->division_name = $_POST['division_name'];
+                $division->type_id = $_POST['type_id'];
+                $division->save();
+                app()->route->redirect('/newdivision?message=Подразделение успешно добавлено');
+            } else {
+                app()->route->redirect('/newdivision?error=Необходимо заполнить все поля');
+            }
+        }
+        $division_types = Division_type::all();
+        return new View('site.new_division', ['division_types' => $division_types]);
     }
+
+
     public function newroom(): string
     {
-        return new View('site.new_room');
+        $room_types = Room_type::all();
+        return new View('site.new_room', ['room_types' => $room_types]);
     }
     public function newsub(): string
     {
         return new View('site.new_sub');
+    }
+
+    public function divisions(): string
+    {
+        $divisions = Division::all();
+        return (new View())->render('site.divisions', ['divisions' => $divisions]);
     }
     public function signup(Request $request): string
     {

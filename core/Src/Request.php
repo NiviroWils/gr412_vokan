@@ -6,6 +6,7 @@ use Error;
 
 class Request
 {
+
     protected array $body;
     public string $method;
     public array $headers;
@@ -45,3 +46,6 @@ class Request
         throw new Error('Accessing a non-existent property');
     }
 }
+
+
+

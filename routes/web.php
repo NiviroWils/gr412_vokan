@@ -7,9 +7,11 @@ Route::add('GET', '/hello', [Controller\Site::class, 'hello'])
 Route::add(['GET', 'POST'], '/signup', [Controller\Site::class, 'signup']);
 Route::add(['GET', 'POST'], '/login', [Controller\Site::class, 'login']);
 Route::add('GET', '/logout', [Controller\Site::class, 'logout']);
-Route::add('GET', '/newdivision', [Controller\Site::class, 'newdivision'])
+Route::add(['GET', 'POST'], '/newdivision', [Controller\Site::class, 'newdivision'])
     ->middleware('auth');
 Route::add('GET', '/newroom', [Controller\Site::class, 'newroom'])
     ->middleware('auth');
 Route::add('GET', '/newsub', [Controller\Site::class, 'newsub'])
+    ->middleware('auth');
+Route::add('GET', '/divisions', [Controller\Site::class, 'divisions'])
     ->middleware('auth');
