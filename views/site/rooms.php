@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список подразделений</title>
+    <title>Список помещений</title>
     <style>
-        .division-cards {
+        .room-cards {
             display: flex;
             flex-wrap: wrap;
-            gap: 200px;
+            gap: 20px;
             justify-content: center;
             margin-top: 30px;
-            width: 1765px;
-            height: 766px;
+            width: 100%;
         }
 
-        .division-card {
+        .room-card {
             width: 200px;
             height: 200px;
             background-color: #f0f0f0;
@@ -28,46 +27,47 @@
             align-items: center;
         }
 
-        .division-name {
+        .room-name {
             font-size: 18px;
             margin-bottom: 10px;
         }
 
-        .division-type {
+        .room-type {
             font-size: 14px;
             color: #666;
         }
-        .division-head{
-            margin-left: 650px;
+
+        .room-head {
+            text-align: center;
             margin-top: 20px;
         }
-        .add-division-btn{
-            width: 255px;
-            height: 59px;
+
+        .add-room-btn {
+            width: 200px;
+            height: 50px;
             border-style: none;
             border-radius: 30px;
             background-color: #787878;
             color: white;
-            font-size: 25px;
+            font-size: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-left: 960px;
-            margin-top: 50px;
-
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
-<h1 class="division-head">Список подразделений</h1>
-<div class="division-cards">
-    <?php foreach ($divisions as $division): ?>
-        <div class="division-card">
-            <div class="division-name"><?= $division->division_name ?></div>
-            <div class="division-type">Вид подразделения: <?= $division->type->type ?></div>
+<h1 class="room-head">Список помещений</h1>
+<div class="room-cards">
+    <?php foreach ($rooms as $room): ?>
+        <div class="room-card">
+            <div class="room-name"><?= $room->room_name ?></div>
+            <div class="room-type">Тип помещения: <?= $room->type->type ?></div>
+            <div class="room-type">Подразделение: <?= $room->division->division_name ?></div>
         </div>
     <?php endforeach; ?>
 </div>
-<a class="add-division-btn" href="<?= app()->route->getUrl('/newdivision') ?>">Добавить</a>
+<a class="add-room-btn" href="<?= app()->route->getUrl('/newroom') ?>">Добавить помещение</a>
 </body>
 </html>

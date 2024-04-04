@@ -1,5 +1,8 @@
 <?php
 namespace Controller;
+use Model\Phone;
+use Model\Subscriber;
+use Model\Room;
 use Model\Division_type;
 use Model\Division;
 use Model\Post;
@@ -41,20 +44,82 @@ class Site
     }
 
 
-    public function newroom(): string
+    public function newroom(Request $request): string
     {
+        if ($request->method === 'POST') {
+            if (isset($_POST['room_name'], $_POST['type_id'], $_POST['division_id'])) {
+                $room = new Room();
+                $room->room_name = $_POST['room_name'];
+                $room->type_id = $_POST['type_id'];
+                $room->division_id = $_POST['division_id'];
+                $room->save();
+                app()->route->redirect('/newroom?message=Помещение успешно добавлено');
+            } else {
+                app()->route->redirect('/newroom?error=Необходимо заполнить все поля');
+            }
+        }
         $room_types = Room_type::all();
-        return new View('site.new_room', ['room_types' => $room_types]);
+        $divisions = Division::all(); // Получаем список подразделений для выпадающего списка
+        return new View('site.new_room', ['room_types' => $room_types, 'divisions' => $divisions]);
     }
-    public function newsub(): string
+
+
+
+    public function newsub(Request $request): string
     {
-        return new View('site.new_sub');
+        if ($request->method === 'POST') {
+            if (isset($_POST['name'], $_POST['surname'], $_POST['patronymic'], $_POST['birth_date'], $_POST['division_id'])) {
+                $subscriber = new Subscriber();
+                $subscriber->name = $_POST['name'];
+                $subscriber->surname = $_POST['surname'];
+                $subscriber->patronymic = $_POST['patronymic'];
+                $subscriber->birth_date = $_POST['birth_date'];
+                $subscriber->division_id = $_POST['division_id'];
+                $subscriber->save();
+                app()->route->redirect('/newsub?message=Абонент успешно добавлен');
+            } else {
+                app()->route->redirect('/newsub?error=Необходимо заполнить все поля');
+            }
+        }
+        $divisions = Division::all(); // Получаем список подразделений для выпадающего списка
+        return new View('site.new_sub', ['divisions' => $divisions]);
+    }
+    public function newphone(Request $request): string
+    {
+        if ($request->method === 'POST') {
+            // Проверяем наличие всех необходимых параметров
+            if (isset($_POST['phone'], $_POST['subscriber_id'], $_POST['room_id'])) {
+                // Создаем новый объект Phone и сохраняем его в базу данных
+                $phone = new Phone();
+                $phone->phone = $_POST['phone'];
+                $phone->subscriber_id = $_POST['subscriber_id'];
+                $phone->room_id = $_POST['room_id'];
+                $phone->save();
+                // Перенаправляем пользователя на страницу с сообщением об успешном добавлении
+                app()->route->redirect('/newphone?message=Номер телефона успешно добавлен');
+            } else {
+                // Если какие-то из параметров отсутствуют, перенаправляем на страницу с ошибкой
+                app()->route->redirect('/newphone?error=Необходимо заполнить все поля');
+            }
+        }
+
+        // Получаем список помещений и абонентов для выпадающих списков
+        $rooms = Room::all();
+        $subscribers = Subscriber::all();
+
+        // Возвращаем представление для страницы с формой добавления номера телефона
+        return new View('site.new_phone', ['rooms' => $rooms, 'subscribers' => $subscribers]);
     }
 
     public function divisions(): string
     {
         $divisions = Division::all();
         return (new View())->render('site.divisions', ['divisions' => $divisions]);
+    }
+    public function rooms(): string
+    {
+        $rooms = Room::all();
+        return (new View())->render('site.rooms', ['rooms' => $rooms]);
     }
     public function signup(Request $request): string
     {

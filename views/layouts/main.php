@@ -15,8 +15,9 @@
     <nav>
         <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
         <a href="<?= app()->route->getUrl('/divisions') ?>">Подразделения</a>
-        <a href="<?= app()->route->getUrl('/newroom') ?>">Помещения</a>
+        <a href="<?= app()->route->getUrl('/rooms') ?>">Помещения</a>
         <a href="<?= app()->route->getUrl('/newsub') ?>">Абоненты</a>
+        <a href="<?= app()->route->getUrl('/newphone') ?>">Номера</a>
         <?php
         if (!app()->auth::check()):
             ?>

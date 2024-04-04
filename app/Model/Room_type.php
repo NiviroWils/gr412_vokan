@@ -9,7 +9,7 @@ use Src\Auth\IdentityInterface;
 class Room_type extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'type_id';
     public $room_types = false;
     protected $fillable = [
         'type',
