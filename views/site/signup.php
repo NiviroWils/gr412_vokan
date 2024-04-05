@@ -1,13 +1,19 @@
 <h2 class="auth_head">Регистрация нового пользователя</h2>
 <h3><?= $message ?? ''; ?></h3>
 <div class="auth_div">
-<form class="auth_form" method="post">
-    <input placeholder="Имя" type="text" name="name">
-    <input placeholder="Email" type="text" name="login">
-    <input placeholder="Пароль" type="password" name="password">
-    <button>Зарегистрироваться</button>
-</form>
+    <form class="auth_form" method="post">
+        <input placeholder="Имя" type="text" name="name">
+        <input placeholder="Email" type="text" name="login">
+        <input placeholder="Пароль" type="password" name="password">
+        <select name="role_id">
+            <?php foreach ($roles as $role): ?>
+                <option value="<?= $role->role_id ?>"><?= $role->role_name ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button>Зарегистрироваться</button>
+    </form>
 </div>
+
 <style>
     .auth_div{
         height: 475px;

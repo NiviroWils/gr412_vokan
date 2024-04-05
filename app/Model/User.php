@@ -14,7 +14,8 @@ class User extends Model implements IdentityInterface
     protected $fillable = [
         'name',
         'login',
-        'password'
+        'password',
+        'role_id'
     ];
 
     protected static function booted()
@@ -35,6 +36,10 @@ class User extends Model implements IdentityInterface
     public function getId(): int
     {
         return $this->id;
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     //Возврат аутентифицированного пользователя

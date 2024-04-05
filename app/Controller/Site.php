@@ -1,5 +1,6 @@
 <?php
 namespace Controller;
+use Model\Role;
 use Model\Phone;
 use Model\Subscriber;
 use Model\Room;
@@ -26,6 +27,7 @@ class Site
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
+
     public function newdivision(Request $request): string
     {
         if ($request->method === 'POST') {
@@ -116,6 +118,14 @@ class Site
         $divisions = Division::all();
         return (new View())->render('site.divisions', ['divisions' => $divisions]);
     }
+    public function subscribers(): string
+    {
+        $divisionId = isset($_GET['division']) ? $_GET['division'] : null;
+        $subscribers = $divisionId ? Subscriber::where('division_id', $divisionId)->get() : Subscriber::all();
+        $divisions = Division::all();
+        return (new View())->render('site.subscribers', ['subscribers' => $subscribers, 'divisions' => $divisions]);
+    }
+
     public function rooms(): string
     {
         $rooms = Room::all();
@@ -123,11 +133,24 @@ class Site
     }
     public function signup(Request $request): string
     {
-        if ($request->method==='POST' && User::create($request->all())){
-            app()->route->redirect('/hello');
+        if ($request->method === 'POST') {
+            // Проверяем, получены ли все необходимые данные
+            if (isset($_POST['name'], $_POST['login'], $_POST['password'], $_POST['role_id'])) {
+                // Создаем нового пользователя, включая role_id
+                if (User::create($request->all())) {
+                    app()->route->redirect('/hello');
+                }
+            } else {
+                // Если какие-то данные отсутствуют, перенаправляем на страницу с ошибкой
+                return new View('site.signup', ['message' => 'Необходимо заполнить все поля']);
+            }
         }
-        return new View('site.signup');
+        $roles = Role::all();
+        // Если метод запроса не POST, отображаем форму регистрации
+        return new View('site.signup', ['roles' => $roles]);
     }
+
+//$roles = Role::all();
     public function login(Request $request): string
     {
         //Если просто обращение к странице, то отобразить форму

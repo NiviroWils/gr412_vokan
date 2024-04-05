@@ -2,20 +2,22 @@
 
 use Src\Route;
 
-Route::add('GET', '/hello', [Controller\Site::class, 'hello'])
-    ->middleware('auth');
-Route::add(['GET', 'POST'], '/signup', [Controller\Site::class, 'signup']);
+Route::add('GET', '/hello', [Controller\Site::class, 'hello']);
+Route::add(['GET', 'POST'], '/signup', [Controller\Site::class, 'signup'])
+    ->middleware('role2');
 Route::add(['GET', 'POST'], '/login', [Controller\Site::class, 'login']);
 Route::add('GET', '/logout', [Controller\Site::class, 'logout']);
 Route::add(['GET', 'POST'], '/newdivision', [Controller\Site::class, 'newdivision'])
-    ->middleware('auth');
+    ->middleware('role');
 Route::add(['GET', 'POST'], '/newroom', [Controller\Site::class, 'newroom'])
-    ->middleware('auth');
+    ->middleware('role');
 Route::add(['GET', 'POST'],'/newsub', [Controller\Site::class, 'newsub'])
-    ->middleware('auth');
+    ->middleware('role');
 Route::add(['GET', 'POST'],'/newphone', [Controller\Site::class, 'newphone'])
-    ->middleware('auth');
+    ->middleware('role');
 Route::add('GET', '/divisions', [Controller\Site::class, 'divisions'])
-    ->middleware('auth');
+    ->middleware('role');
 Route::add('GET', '/rooms', [Controller\Site::class, 'rooms'])
-    ->middleware('auth');
+    ->middleware('role');
+Route::add('GET', '/subscribers', [Controller\Site::class, 'subscribers'])
+    ->middleware('role');
