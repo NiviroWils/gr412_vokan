@@ -14,7 +14,7 @@ Route::add(['GET', 'POST'], '/newroom', [Controller\Site::class, 'newroom'])
 Route::add(['GET', 'POST'],'/newsub', [Controller\Site::class, 'newsub'])
     ->middleware('role', 'auth');
 Route::add(['GET', 'POST'],'/newphone', [Controller\Site::class, 'newphone'])
-    ->middleware('role');
+    ->middleware('role', 'auth');
 Route::add('GET', '/divisions', [Controller\Site::class, 'divisions'])
     ->middleware('role', 'auth');
 Route::add('GET', '/rooms', [Controller\Site::class, 'rooms'])

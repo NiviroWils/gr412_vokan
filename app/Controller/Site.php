@@ -120,10 +120,25 @@ class Site
     }
     public function subscribers(): string
     {
-        $divisionId = isset($_GET['division']) ? $_GET['division'] : null;
-        $subscribers = $divisionId ? Subscriber::where('division_id', $divisionId)->get() : Subscriber::all();
+        // Получаем список всех подразделений
         $divisions = Division::all();
-        return (new View())->render('site.subscribers', ['subscribers' => $subscribers, 'divisions' => $divisions]);
+
+        // Получаем значение параметра division из глобального массива $_GET
+        $divisionId = isset($_GET['division']) ? $_GET['division'] : null;
+
+        // Если передан параметр division, фильтруем абонентов по подразделению
+        if ($divisionId) {
+            $subscribers = Subscriber::where('division_id', $divisionId)->get();
+        } else {
+            // Иначе получаем всех абонентов
+            $subscribers = Subscriber::all();
+        }
+
+        // Возвращаем представление для страницы с абонентами
+        return new View('site.subscribers', [
+            'subscribers' => $subscribers,
+            'divisions' => $divisions,
+        ]);
     }
 
     public function rooms(): string
