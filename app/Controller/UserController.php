@@ -6,7 +6,8 @@ use Model\User;
 use Src\Auth\Auth;
 use Src\Request;
 use Src\View;
-class UserController{public function signup(Request $request): string
+class UserController{
+    public function signup(Request $request): string
 {
     if ($request->method === 'POST') {
         // Проверяем, получены ли все необходимые данные
