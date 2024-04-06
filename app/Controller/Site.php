@@ -162,6 +162,7 @@ class Site
         ]);
     }
 
+
     public function rooms(): string
     {
         $rooms = Room::all();

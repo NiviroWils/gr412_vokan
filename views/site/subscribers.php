@@ -5,7 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список абонентов</title>
     <style>
-        .add-division-btn {
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .subscriber-card {
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .subscriber-card h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .subscriber-card p {
+            margin-bottom: 5px;
+        }
+        .add-subscriber-btn {
             width: 255px;
             height: 59px;
             border-style: none;
@@ -16,36 +37,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-left: 960px;
-            margin-top: 50px;
+            margin-top: 20px;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>Список абонентов</h2>
-    <form method="get" action="/subscribers">
-        <div class="division-select">
-            <label for="division">Выберите подразделение:</label><br>
-            <select id="division" name="division">
-                <option value="">Все подразделения</option>
-                <?php foreach ($divisions as $division): ?>
-                    <option value="<?= $division->division_id ?>" <?= ($_GET['division'] ?? '') == $division->division_id ? 'selected' : '' ?>>
-                        <?= $division->division_name ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-            <button type="submit">Фильтровать</button>
-        </div>
-    </form>
+
     <div class="subscriber-list">
-        <ul>
-            <?php foreach ($subscribers as $subscriber): ?>
-                <li><?= $subscriber->name ?> <?= $subscriber->surname ?>, подразделение: <?= $subscriber->division->division_name ?></li>
-            <?php endforeach; ?>
-        </ul>
+        <?php foreach ($subscribers as $subscriber): ?>
+            <div class="subscriber-card">
+                <h3><?= $subscriber->name ?> <?= $subscriber->surname ?></h3>
+                <p>Подразделение: <?= $subscriber->division->division_name ?></p>
+            </div>
+        <?php endforeach; ?>
     </div>
-    <a class="add-division-btn" href="<?= app()->route->getUrl('/newsub') ?>">Добавить</a>
+    <a class="add-subscriber-btn" href="<?= app()->route->getUrl('/newsub') ?>">Добавить абонента</a>
 </div>
 </body>
 </html>
