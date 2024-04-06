@@ -143,24 +143,63 @@ class Site
     {
         // Получаем список всех подразделений
         $divisions = Division::all();
+        $rooms = Room::all();
 
-        // Получаем значение параметра division из глобального массива $_GET
-        $divisionId = isset($_GET['division']) ? $_GET['division'] : null;
+        $subscribers = Subscriber::all();
 
-        // Если передан параметр division, фильтруем абонентов по подразделению
-        if ($divisionId) {
-            $subscribers = Subscriber::where('division_id', $divisionId)->get();
-        } else {
-            // Иначе получаем всех абонентов
-            $subscribers = Subscriber::all();
-        }
 
         // Возвращаем представление для страницы с абонентами
         return new View('site.subscribers', [
             'subscribers' => $subscribers,
             'divisions' => $divisions,
+            'rooms' => $rooms,
         ]);
     }
+    public function countByDivision(Request $request): string
+    {
+        // Получаем division_id из запроса
+        $divisionId = isset($_GET['division_id']) ? $_GET['division_id'] : null;
+
+        // Если division_id не был передан, возвращаем пустое значение
+        if (!$divisionId) {
+            return new View('site.count_by_division', ['result' => 'Выберите подразделение']);
+        }
+
+        // Подсчитываем количество абонентов в выбранном подразделении
+        $subscriberCount = Subscriber::where('division_id', $divisionId)->count();
+
+        // Формируем сообщение о количестве абонентов
+        $result = "Количество абонентов в выбранном подразделении: $subscriberCount";
+
+        // Возвращаем представление для отображения результата
+        return new View('site.count_by_division', ['result' => $result]);
+    }
+
+
+
+    public function countByRoom(Request $request): string
+    {
+        $roomId = $request->get('room_id');
+
+        if (!$roomId) {
+            return new View('site.count_by_room', ['result' => 'Выберите помещение']);
+        }
+
+        // Подсчитываем количество абонентов, у которых помещение номера телефона совпадает с выбранным помещением
+        $subscriberCount = Subscriber::whereHas('phones', function ($query) use ($roomId) {
+            $query->where('room_id', $roomId);
+        })->count();
+
+        // Формируем сообщение о количестве абонентов
+        $result = "Количество абонентов по выбранному помещению: $subscriberCount";
+
+        // Возвращаем представление для отображения результата
+        return new View('site.count_by_room', ['result' => $result]);
+    }
+
+
+
+
 
 
     public function rooms(): string

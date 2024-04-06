@@ -16,5 +16,8 @@ class Subscriber extends Model
     {
         return $this->belongsTo(Division::class, 'division_id');
     }
-
+    public function phones()
+    {
+        return $this->hasMany(Phone::class, 'subscriber_id', 'subscriber_id');
+    }
 }

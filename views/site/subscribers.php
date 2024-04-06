@@ -46,6 +46,26 @@
 <div class="container">
     <h2>Список абонентов</h2>
 
+    <!-- Форма для подсчета абонентов по подразделению -->
+    <form action="<?= app()->route->getUrl('/count_by_division') ?>" method="GET">
+        <select name="division_id" id="division_select"> <!-- Ensure the name attribute is correct -->
+            <?php foreach ($divisions as $division): ?>
+                <option value="<?= $division->division_id ?>"><?= $division->division_name ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Подсчитать абонентов по подразделению</button>
+    </form>
+
+    <form action="<?= app()->route->getUrl('/count_by_room') ?>" method="GET">
+        <select name="room_id" >
+            <?php foreach ($rooms as $room): ?>
+                <option value="<?= $room->room_id ?>"><?= $room->room_name ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit">Подсчитать абонентов по помещению</button>
+    </form>
+
+
     <div class="subscriber-list">
         <?php foreach ($subscribers as $subscriber): ?>
             <div class="subscriber-card">

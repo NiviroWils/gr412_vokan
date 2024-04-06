@@ -23,3 +23,7 @@ Route::add('GET', '/subscribers', [Controller\Site::class, 'subscribers'])
     ->middleware('role', 'auth');
 Route::add('GET', '/phones', [Controller\Site::class, 'phones'])
     ->middleware('role', 'auth');
+Route::add('GET', '/count_by_division', [Controller\Site::class, 'countByDivision'])
+    ->middleware('role', 'auth');
+Route::add('GET', '/count_by_room', [Controller\Site::class, 'countByRoom'])
+    ->middleware('role', 'auth');
