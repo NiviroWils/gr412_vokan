@@ -14,24 +14,22 @@
 <header>
     <nav>
         <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
-        <a href="<?= app()->route->getUrl('/divisions') ?>">Подразделения</a>
-        <a href="<?= app()->route->getUrl('/rooms') ?>">Помещения</a>
-        <a href="<?= app()->route->getUrl('/subscribers') ?>">Абоненты</a>
-        <a href="<?= app()->route->getUrl('/phones') ?>">Номера</a>
 
-        <?php
-        if (!app()->auth::check()):
-            ?>
+        <?php if (!app()->auth::check()): ?>
             <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
-
-        <?php
-        else:
-            ?>
+        <?php else: ?>
             <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
-            <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
-        <?php
-        endif;
-        ?>
+            <?php if (app()->auth::user()->role_id === 1): ?>
+                <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
+            <?php endif; ?>
+            <?php if (app()->auth::user()->role_id === 2): ?>
+                <a href="<?= app()->route->getUrl('/divisions') ?>">Подразделения</a>
+                <a href="<?= app()->route->getUrl('/rooms') ?>">Помещения</a>
+                <a href="<?= app()->route->getUrl('/subscribers') ?>">Абоненты</a>
+                <a href="<?= app()->route->getUrl('/phones') ?>">Номера</a>
+            <?php endif; ?>
+
+        <?php endif; ?>
     </nav>
 </header>
 <main>

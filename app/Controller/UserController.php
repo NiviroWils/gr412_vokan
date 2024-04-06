@@ -26,7 +26,6 @@ class UserController{
     return new View('site.signup', ['roles' => $roles]);
 }
 
-//$roles = Role::all();
     public function login(Request $request): string
     {
         //Если просто обращение к странице, то отобразить форму
