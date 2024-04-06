@@ -13,7 +13,7 @@
                 <?php endforeach; ?>
             </select>
         </label>
-        <select name="division_id"> <!-- Поле для идентификатора подразделения -->
+        <select name="division_id">
             <option class="" value="">Подразделение</option>
             <?php foreach($divisions as $division): ?>
                 <option value="<?= $division->division_id; ?>">

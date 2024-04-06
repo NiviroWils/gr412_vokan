@@ -6,7 +6,7 @@
     <h3><?= $_GET['error']; ?></h3>
 <?php endif; ?>
 <div class="auth_div">
-    <form class="auth_form" method="post" action="/newdivision">
+    <form class="auth_form" method="post">
         <input type="text" placeholder="Название подразделения" name="division_name">
         <label>
             <select name="type_id">

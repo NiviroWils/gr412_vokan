@@ -55,7 +55,7 @@
 <body>
 <div class="container">
     <h2>Новый номер телефона</h2>
-    <form action="/newphone" method="post">
+    <form method="post">
         <label for="phone" class="form-label">Номер телефона:</label>
         <input type="text" id="phone" name="phone" class="form-input" required>
 
