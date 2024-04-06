@@ -48,11 +48,38 @@
             align-items: center;
             margin-top: 50px;
         }
+        .filter-form {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .filter-select {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>Номера телефонов</h2>
+
+
+    <form class="filter-form" action="<?= app()->route->getUrl('/phones') ?>" method="GET">
+        <select class="filter-select" name="division_id">
+            <option value="">Выберите подразделение</option>
+            <?php foreach ($divisions as $division): ?>
+                <option value="<?= $division->division_id ?>"><?= $division->division_name ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <select class="filter-select" name="subscriber_id">
+            <option value="">Выберите абонента</option>
+            <?php foreach ($subscribers as $subscriber): ?>
+                <option value="<?= $subscriber->subscriber_id ?>"><?= $subscriber->name ?> <?= $subscriber->surname ?></option>
+            <?php endforeach; ?>
+        </select>
+
+        <button type="submit">Поиск</button>
+    </form>
     <div class="phone-list">
         <?php foreach ($phones as $phone): ?>
             <div class="phone-card">
@@ -62,6 +89,8 @@
             </div>
         <?php endforeach; ?>
     </div>
+
+
     <a class="add-division-btn" href="<?= app()->route->getUrl('/newphone') ?>">Добавить</a>
 </div>
 </body>

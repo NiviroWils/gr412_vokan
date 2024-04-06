@@ -27,15 +27,39 @@ class Site
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
-    public function phones(): string
+    // Controller/Site.php
+
+    public function phones(Request $request): string
     {
         // Получаем список всех номеров телефонов
-        $phones = Phone::all();
+        $phones = Phone::query();
+
+        // Получаем значение параметров division_id и subscriber_id из запроса
+        $divisionId = $request->get('division_id');
+        $subscriberId = $request->get('subscriber_id');
+
+        // Если выбрано конкретное подразделение, фильтруем номера телефонов по нему
+        if ($divisionId) {
+            $phones->whereHas('subscriber', function ($query) use ($divisionId) {
+                $query->where('division_id', $divisionId);
+            });
+        }
+
+        // Если выбран конкретный абонент, фильтруем номера телефонов по нему
+        if ($subscriberId) {
+            $phones->where('subscriber_id', $subscriberId);
+        }
+
+        // Получаем список всех подразделений и абонентов для формы фильтрации
+        $divisions = Division::all();
+        $subscribers = Subscriber::all();
+
+        // Завершаем запрос и получаем коллекцию номеров телефонов
+        $phones = $phones->get();
 
         // Возвращаем представление для страницы с номерами телефонов
-        return new View('site.phones', ['phones' => $phones]);
+        return new View('site.phones', ['phones' => $phones, 'divisions' => $divisions, 'subscribers' => $subscribers]);
     }
-
 
     public function newdivision(Request $request): string
     {
@@ -155,44 +179,6 @@ class Site
         $rooms = Room::all();
         return (new View())->render('site.rooms', ['rooms' => $rooms]);
     }
-    public function signup(Request $request): string
-    {
-        if ($request->method === 'POST') {
-            // Проверяем, получены ли все необходимые данные
-            if (isset($_POST['name'], $_POST['login'], $_POST['password'], $_POST['role_id'])) {
-                // Создаем нового пользователя, включая role_id
-                if (User::create($request->all())) {
-                    app()->route->redirect('/hello');
-                }
-            } else {
-                // Если какие-то данные отсутствуют, перенаправляем на страницу с ошибкой
-                return new View('site.signup', ['message' => 'Необходимо заполнить все поля']);
-            }
-        }
-        $roles = Role::all();
-        // Если метод запроса не POST, отображаем форму регистрации
-        return new View('site.signup', ['roles' => $roles]);
-    }
 
-//$roles = Role::all();
-    public function login(Request $request): string
-    {
-        //Если просто обращение к странице, то отобразить форму
-        if ($request->method === 'GET') {
-            return new View('site.login');
-        }
-        //Если удалось аутентифицировать пользователя, то редирект
-        if (Auth::attempt($request->all())) {
-            app()->route->redirect('/hello');
-        }
-        //Если аутентификация не удалась, то сообщение об ошибке
-        return new View('site.login', ['message' => 'Неправильные логин или пароль']);
-    }
-
-    public function logout(): void
-    {
-        Auth::logout();
-        app()->route->redirect('/hello');
-    }
 
 }
