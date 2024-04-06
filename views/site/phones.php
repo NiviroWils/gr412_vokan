@@ -3,50 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список подразделений</title>
+    <title>Номера телефонов</title>
     <style>
         .container {
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 15px;
         }
-
-        .division-cards {
+        .phone-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 50px;
             justify-content: center;
-            margin-top: 30px;
         }
-
-        .division-card {
+        .phone-card {
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            width: 226px;
+            height: 214px;
+            flex-direction: column;
             background-color: #f0f0f0;
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-            border-radius: 10px;
-            padding: 20px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 200px;
-            height: 200px;
         }
-
-        .division-name {
-            font-size: 18px;
-            margin-bottom: 10px;
+        .phone-card h3 {
+            margin-top: 0;
         }
-
-        .division-type {
-            font-size: 14px;
-            color: #666;
+        .phone-card p {
+            margin-bottom: 5px;
         }
-
-        .division-head {
-            margin-top: 20px;
-        }
-
-        .add-division-btn {
+        .add-division-btn{
             width: 255px;
             height: 59px;
             border-style: none;
@@ -63,16 +52,17 @@
 </head>
 <body>
 <div class="container">
-    <h1 class="division-head">Список подразделений</h1>
-    <div class="division-cards">
-        <?php foreach ($divisions as $division): ?>
-            <div class="division-card">
-                <div class="division-name"><?= $division->division_name ?></div>
-                <div class="division-type">Вид подразделения: <?= $division->type->type ?></div>
+    <h2>Номера телефонов</h2>
+    <div class="phone-list">
+        <?php foreach ($phones as $phone): ?>
+            <div class="phone-card">
+                <h3>Номер: <?= $phone->phone ?></h3>
+                <p>Абонент: <?= $phone->subscriber->name ?> <?= $phone->subscriber->surname ?></p>
+                <p>Помещение: <?= $phone->room->room_name ?></p>
             </div>
         <?php endforeach; ?>
     </div>
-    <a class="add-division-btn" href="<?= app()->route->getUrl('/newdivision') ?>">Добавить</a>
+    <a class="add-division-btn" href="<?= app()->route->getUrl('/newphone') ?>">Добавить</a>
 </div>
 </body>
 </html>

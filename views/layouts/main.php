@@ -17,7 +17,7 @@
         <a href="<?= app()->route->getUrl('/divisions') ?>">Подразделения</a>
         <a href="<?= app()->route->getUrl('/rooms') ?>">Помещения</a>
         <a href="<?= app()->route->getUrl('/subscribers') ?>">Абоненты</a>
-        <a href="<?= app()->route->getUrl('/newphone') ?>">Номера</a>
+        <a href="<?= app()->route->getUrl('/phones') ?>">Номера</a>
 
         <?php
         if (!app()->auth::check()):

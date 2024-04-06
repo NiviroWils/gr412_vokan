@@ -27,6 +27,15 @@ class Site
     {
         return new View('site.hello', ['message' => 'hello working']);
     }
+    public function phones(): string
+    {
+        // Получаем список всех номеров телефонов
+        $phones = Phone::all();
+
+        // Возвращаем представление для страницы с номерами телефонов
+        return new View('site.phones', ['phones' => $phones]);
+    }
+
 
     public function newdivision(Request $request): string
     {
