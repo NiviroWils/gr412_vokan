@@ -139,22 +139,31 @@ class Site
         $divisions = Division::all();
         return (new View())->render('site.divisions', ['divisions' => $divisions]);
     }
-    public function subscribers(): string
+    public function subscribers(Request $request): string
     {
-        // Получаем список всех подразделений
+        $searchQuery = $request->get('search');
+        $subscribersQuery = Subscriber::query();
+
+        if ($searchQuery) {
+            $subscribersQuery->where(function ($query) use ($searchQuery) {
+                $query->where('name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('surname', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
         $divisions = Division::all();
         $rooms = Room::all();
+        $subscribers = $subscribersQuery->get();
 
-        $subscribers = Subscriber::all();
-
-
-        // Возвращаем представление для страницы с абонентами
         return new View('site.subscribers', [
             'subscribers' => $subscribers,
             'divisions' => $divisions,
             'rooms' => $rooms,
+            'searchQuery' => $searchQuery,
         ]);
     }
+
+
     public function countByDivision(Request $request): string
     {
         // Получаем division_id из запроса
