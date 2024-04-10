@@ -21,6 +21,8 @@
                 </option>
             <?php endforeach; ?>
         </select>
+        <input type="file" id="image" name="image"><br><br>
+
         <button>Добавить помещение</button>
     </form>
 
@@ -58,7 +60,7 @@
         flex-direction: column;
         align-items: center;
         gap: 15px;
-        margin-top: 15px;
+        margin-top:136px;
     }
     button{
         width: 381px;
