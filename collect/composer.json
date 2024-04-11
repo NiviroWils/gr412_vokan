@@ -1,0 +1,24 @@
+{
+  "name": "NiviroWils/collect",
+  "description": "Module for working with arrays ",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "NiviroWils",
+      "email": "ksu280705@@yandex.ru"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^7.4 | ^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Collect\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  }
+}

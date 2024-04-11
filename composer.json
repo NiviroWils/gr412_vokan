@@ -1,26 +1,15 @@
 {
-    "name": "nivirowils/gr412_vokan",
-    "type": "project",
-    "license": "MIT",
+    "name": "kseniia/htdocs",
+    "autoload": {
+        "psr-4": {
+            "Kseniia\\Htdocs\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "NiviroWils",
             "email": "145367856+NiviroWils@users.noreply.github.com"
         }
     ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": "^7.4 | ^8.0",
-        "illuminate/database": "8.x-dev",
-        "illuminate/events": "8.x-dev",
-        "nikic/fast-route": "v1.x-dev"
-
-    },
-    "autoload": {
-        "psr-4": {
-            "Src\\": "core/Src/",
-            "": "app/"
-        }
-    }
-
+    "require": {}
 }
