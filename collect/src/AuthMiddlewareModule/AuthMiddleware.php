@@ -1,6 +1,6 @@
 <?php
 
-namespace Middlewares;
+namespace Collect\AuthMiddlewareModule;
 
 use Src\Auth\Auth;
 use Src\Request;

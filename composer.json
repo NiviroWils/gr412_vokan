@@ -2,14 +2,25 @@
     "name": "kseniia/htdocs",
     "autoload": {
         "psr-4": {
-            "Kseniia\\Htdocs\\": "src/"
+            "Kseniia\\Htdocs\\": "src/",
+            "MiddlewaresPackage\\": "collect/src/AuthMiddlewareModule/src/"
         }
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./collect/src/AuthMiddlewareModule"
+        }
+    ],
     "authors": [
         {
             "name": "NiviroWils",
             "email": "145367856+NiviroWils@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "vendor/middlewares-package": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

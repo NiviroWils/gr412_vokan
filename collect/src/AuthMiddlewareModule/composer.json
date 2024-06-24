@@ -1,0 +1,10 @@
+{
+  "name": "vendor/middlewares-package",
+  "description": "A package for middlewares",
+  "autoload": {
+    "psr-4": {
+      "MiddlewaresPackage\\": "src/"
+    }
+  },
+  "require": {}
+}
