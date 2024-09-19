@@ -5,36 +5,26 @@ use Model\Role;
 use Model\User;
 use Src\Auth\Auth;
 use Src\Request;
-use Src\Validator\RegistrationValidator;
 use Src\View;
 class UserController{
     public function signup(Request $request): string
-    {
-        if ($request->method === 'POST') {
-            // Валидируем данные регистрации
-            $validator = new RegistrationValidator($request->all());
-
-            // Если валидация не прошла, возвращаем сообщение об ошибках
-            if ($validator->fails()) {
-                return new View('site.signup', ['message' => 'Проверьте введенные данные', 'errors' => $validator->errors()]);
-            }
-
-            // Создаем нового пользователя только если валидация прошла успешно
-            $userData = $request->all();
-            $user = User::where('login', $userData['login'])->first();
-            if ($user) {
-                return new View('site.signup', ['message' => 'Пользователь с таким логином уже существует']);
-            }
-
-            if (User::create($userData)) {
+{
+    if ($request->method === 'POST') {
+        // Проверяем, получены ли все необходимые данные
+        if (isset($_POST['name'], $_POST['login'], $_POST['password'], $_POST['role_id'])) {
+            // Создаем нового пользователя, включая role_id
+            if (User::create($request->all())) {
                 app()->route->redirect('/hello');
             }
+        } else {
+            // Если какие-то данные отсутствуют, перенаправляем на страницу с ошибкой
+            return new View('site.signup', ['message' => 'Необходимо заполнить все поля']);
         }
-
-        $roles = Role::all();
-        // Если метод запроса не POST, отображаем форму регистрации
-        return new View('site.signup', ['roles' => $roles]);
     }
+    $roles = Role::all();
+    // Если метод запроса не POST, отображаем форму регистрации
+    return new View('site.signup', ['roles' => $roles]);
+}
 
     public function login(Request $request): string
     {

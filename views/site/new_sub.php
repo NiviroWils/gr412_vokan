@@ -71,11 +71,13 @@
 <h2 class="auth_head">Новый абонент</h2>
 <h3><?= $message ?? ''; ?></h3>
 <div class="auth_div">
-    <form class="auth_form" method="post">
+    <form class="auth_form" method="post" enctype="multipart/form-data" >
         <input type="text" placeholder="Имя" name="name" required>
         <input type="text" placeholder="Фамилия" name="surname" required>
         <input type="text" placeholder="Отчество" name="patronymic" required>
         <input type="date" name="birth_date" required>
+        <label for="image">Загрузить изображение:</label>
+        <input type="file" name="image" id="image" accept="image/*">
         <select name="division_id" id="division" required>
             <option value="">Выберите подразделение</option>
             <?php foreach ($divisions as $division): ?>

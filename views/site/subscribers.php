@@ -46,11 +46,7 @@
 <div class="container">
     <h2>Список абонентов</h2>
 
-    <form action="<?= app()->route->getUrl('/subscribers') ?>" method="GET">
-        <input type="text" name="search" placeholder="Поиск по имени или фамилии" value="<?= $searchQuery ?>">
-        <button type="submit">Поиск</button>
-    </form>
-
+    <!-- Форма для подсчета абонентов по подразделению -->
     <form action="<?= app()->route->getUrl('/count_by_division') ?>" method="GET">
         <select name="division_id" id="division_select"> <!-- Ensure the name attribute is correct -->
             <?php foreach ($divisions as $division): ?>
@@ -69,9 +65,11 @@
         <button type="submit">Подсчитать абонентов по помещению</button>
     </form>
 
+
     <div class="subscriber-list">
         <?php foreach ($subscribers as $subscriber): ?>
             <div class="subscriber-card">
+                <img src="/<?= $subscriber->image_path ?>" alt="Изображение подписчика" width="150">
                 <h3><?= $subscriber->name ?> <?= $subscriber->surname ?></h3>
                 <p>Подразделение: <?= $subscriber->division->division_name ?></p>
             </div>

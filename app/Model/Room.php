@@ -10,7 +10,7 @@ class Room extends Model
     protected $primaryKey = 'room_id';
 
     public $timestamps = false;
-    protected $fillable = ['room_name', 'type_id', 'division_id', 'image'];
+    protected $fillable = ['room_name', 'type_id', 'division_id'];
 
     public function type()
     {

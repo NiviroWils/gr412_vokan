@@ -99,31 +99,51 @@ class Site
     public function newsub(Request $request): string
     {
         if ($request->method === 'POST') {
-            // Проверяем, получены ли все необходимые данные
+
             if (isset($_POST['name'], $_POST['surname'], $_POST['patronymic'], $_POST['birth_date'], $_POST['division_id'])) {
-                // Создаем нового пользователя, включая role_id
-                if (Subscriber::create($request->all())) {
+
+
+                $imagePath = null;
+                if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    $image = $_FILES['image'];
+
+
+                    $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+
+                    $imageName = time() . '.' . $extension;
+
+                    $uploadDir = 'images/subscribers/';
+                    move_uploaded_file($image['tmp_name'], $uploadDir . $imageName);
+
+                    $imagePath = $uploadDir . $imageName;
+                }
+
+                $subscriberData = $request->all();
+                $subscriberData['image_path'] = $imagePath;
+
+                if (Subscriber::create($subscriberData)) {
                     app()->route->redirect('/hello');
                 }
             } else {
-                // Если какие-то данные отсутствуют, перенаправляем на страницу с ошибкой
+
                 return new View('site.signup', ['message' => 'Необходимо заполнить все поля']);
             }
         }
-        $divisions = Division::all(); // Получаем список подразделений для выпадающего списка
+
+        $divisions = Division::all();
         return new View('site.new_sub', ['divisions' => $divisions]);
     }
     public function newphone(Request $request): string
     {
         if ($request->method === 'POST') {
-            // Проверяем, получены ли все необходимые данные
+
             if (isset($_POST['phone'], $_POST['subscriber_id'], $_POST['room_id'])) {
-                // Создаем нового пользователя, включая role_id
+
                 if (Phone::create($request->all())) {
                     app()->route->redirect('/hello');
                 }
             } else {
-                // Если какие-то данные отсутствуют, перенаправляем на страницу с ошибкой
+
                 return new View('site.signup', ['message' => 'Необходимо заполнить все поля']);
             }
         }
@@ -139,31 +159,22 @@ class Site
         $divisions = Division::all();
         return (new View())->render('site.divisions', ['divisions' => $divisions]);
     }
-    public function subscribers(Request $request): string
+    public function subscribers(): string
     {
-        $searchQuery = $request->get('search');
-        $subscribersQuery = Subscriber::query();
-
-        if ($searchQuery) {
-            $subscribersQuery->where(function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%' . $searchQuery . '%')
-                    ->orWhere('surname', 'like', '%' . $searchQuery . '%');
-            });
-        }
-
+        // Получаем список всех подразделений
         $divisions = Division::all();
         $rooms = Room::all();
-        $subscribers = $subscribersQuery->get();
 
+        $subscribers = Subscriber::all();
+
+
+        // Возвращаем представление для страницы с абонентами
         return new View('site.subscribers', [
             'subscribers' => $subscribers,
             'divisions' => $divisions,
             'rooms' => $rooms,
-            'searchQuery' => $searchQuery,
         ]);
     }
-
-
     public function countByDivision(Request $request): string
     {
         // Получаем division_id из запроса

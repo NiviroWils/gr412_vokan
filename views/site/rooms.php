@@ -72,9 +72,6 @@
                 <div class="room-name"><?= $room->room_name ?></div>
                 <div class="room-type">Тип помещения: <?= $room->type->type ?></div>
                 <div class="room-type">Подразделение: <?= $room->division->division_name ?></div>
-                <?php if ($room->image): ?>
-                    <img src="<?= $room->image ?>" alt="<?= $room->room_name ?>">
-                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>

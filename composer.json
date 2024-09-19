@@ -1,26 +1,26 @@
 {
-    "name": "kseniia/htdocs",
-    "autoload": {
-        "psr-4": {
-            "Kseniia\\Htdocs\\": "src/",
-            "MiddlewaresPackage\\": "collect/src/AuthMiddlewareModule/src/"
-        }
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./collect/src/AuthMiddlewareModule"
-        }
-    ],
+    "name": "nivirowils/gr412_vokan",
+    "type": "project",
+    "license": "MIT",
     "authors": [
         {
             "name": "NiviroWils",
             "email": "145367856+NiviroWils@users.noreply.github.com"
         }
     ],
-    "require": {
-        "vendor/middlewares-package": "dev-master"
-    },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "require": {
+        "php": "^7.4 | ^8.0",
+        "illuminate/database": "8.x-dev",
+        "illuminate/events": "8.x-dev",
+        "nikic/fast-route": "v1.x-dev"
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "core/Src/",
+            "": "app/"
+        }
+    }
+
 }

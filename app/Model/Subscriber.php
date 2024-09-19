@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subscriber extends Model
 {
-    protected $table = 'subscribers'; // Укажите имя таблицы, если оно отличается от стандартного наименования
+    protected $table = 'subscribers';
     protected $primaryKey = 'subscriber_id';
     public $timestamps = false;
-    protected $fillable = ['name', 'surname', 'patronymic', 'birth_date', 'division_id']; // Укажите поля, которые разрешено заполнять массово
+    protected $fillable = ['name', 'surname', 'patronymic', 'birth_date', 'division_id', 'image_path'];
 
-    // Определите отношение с моделью Division
+
     public function division()
     {
         return $this->belongsTo(Division::class, 'division_id');
